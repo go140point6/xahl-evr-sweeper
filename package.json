@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "csv-parse": "^5.5.3",
+    "dotenv": "^16.4.1",
+    "log-timestamp": "^0.3.0",
+    "xrpl": "^2.14.0"
+  }
+}
