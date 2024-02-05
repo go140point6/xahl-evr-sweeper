@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source .env
+
 while getopts m: flag
 do
     case "${flag}" in
@@ -23,9 +25,18 @@ elif [[ $mode == sweep ]]; then
     read -r -p "Are you sure you want to continue? [y/N] " response
     response=${response,,}
     if [[ "$response" =~ ^(yes|y)$ ]]; then
-        echo "Confirmed... running SWEEP of Evernode nodes wallets."
-        node index.js $mode
-        exit 0
+        echo "VERIFY the target address is correct! Configured address is:" $MAIN_WALLET
+        echo "*****"
+        read -r -p "Are you sure you want to continue with this wallet? [y/N] " response
+        response=${response,,}
+        if [[ "$response" =~ ^(yes|y) ]]; then
+            echo "Confirmed... running SWEEP of Evernode nodes wallets."
+            node index.js $mode
+            exit 0
+        else
+            echo "Aborting..."
+            exit 1
+        fi
     else
         echo "Aborting..."
         exit 1
